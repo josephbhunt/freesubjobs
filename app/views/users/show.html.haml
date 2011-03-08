@@ -1,0 +1,25 @@
+#logout.right
+  = link_to "Logout", logout_path(@user.id)
+.clear
+
+#jobs_list.center
+  = render :partial => "users/job_list"
+.clear
+
+#preferences
+  #subject_preferences
+    #sub_pref_title
+      Subject Preferences
+    - unless @subjects.nil?
+      %form{:class => "pref_form center"}
+        %div
+          %input{:type => "submit", :value => "Update Subject Preferences"}
+        .instructions
+          Check the subjects you would like to exclude.
+        - @subjects.each do |subject|
+          %span{:class => "subject_name"}
+            = subject.name
+            %input{:name => "#{subject.name}", :type => "checkbox"}
+
+:javascript
+  startJobListRefresher(#{@user.id})

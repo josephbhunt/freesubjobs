@@ -1,0 +1,27 @@
+class Job
+  @@id = 0
+  attr_accessor :school, 
+                :date, 
+                :district_id, 
+                :teacher, 
+                :subject, 
+                :details, 
+                :assignment, 
+                :assignment_count, 
+                :assignments, 
+                :guid,
+                :absr_id
+
+  def initialize()
+    #@school = school
+    #@date = date                #date of first assignment
+    #@district_id = district_id
+    #@teacher = teacher
+    #@subject = subject
+    #@assignment = assignment
+    #@num_of_assignments = num_of_assignments
+    #@assignments = assignments
+    #@accept_link = accept_link
+    #@html = html
+  end
+end

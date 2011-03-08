@@ -1,0 +1,12 @@
+
+class Assignment
+  @@id = 0
+  attr_accessor :id, :school, :duration, :date
+
+  def initialize(school, duration, date)
+    @id = @@id += 1
+    @school = school
+    @duration = duration
+    @date = date
+  end
+end

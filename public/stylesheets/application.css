@@ -1,0 +1,178 @@
+/**************
+*   General    *
+**************/
+
+body {
+  margin:0px;
+  padding:0px;
+	font-family:Verdana;
+	font-size:14px;
+}
+
+.clear {clear:both;}
+
+.left{float:left;}
+
+.right{float:right;}
+
+.center{margin:0px auto;}
+
+.notice{
+  color:red;
+}
+
+.odd {background-color:#eee;}
+.even {background-color:#ccc;}
+
+/**************
+*   Layout    *
+**************/
+
+#main_wrap{
+  margin:0px auto;
+  width:1010px;
+}
+
+#main_banner {
+  background-color:#222222;
+  border-bottom:2px solid #aaaaaa;
+  padding:10px;
+  margin-bottom:10px;
+  color:#0e0;
+  font-size:25px;
+  font-family: Arial;
+}
+
+#main_footer{
+  border-top:2px solid #aaaaaa;
+  padding:10px;
+  margin-top:10px;
+}
+
+#footer_details{
+  width:500px;
+}
+
+/**************
+*  Index      *
+**************/
+#login_register_forms{
+  width:750px;
+}
+
+
+#login_form, #register_form{
+  margin:20px 20px;
+  padding:0px 40px;
+  width:250px;
+}
+
+
+#login_title, #register_title{
+  margin-bottom:20px;
+  font-size:18px;
+  width:280px;
+}
+
+.label{
+  margin-top:15px;
+  width:280px;
+}
+
+#login_form input, #register_form input{
+  margin-bottom:5px;
+  font-size:18px;
+}
+
+#more_info_links a {
+  margin-left:20px;
+}
+
+/**************
+*  Show       *
+**************/
+#jobs_list{
+  width:700px;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+.district_section{
+  margin-bottom:5px;
+}
+
+.rounded_1, .rounded_2{
+  height:1px;
+  background-color:#444;
+  
+}
+
+.rounded_1{ width:694px;}
+
+.rounded_2{ width:698px;}
+
+.district_title{
+  padding:5px 15px;
+  font-size:18px;
+  font-family:Arial;
+  background-color:#444;
+  color:#0e0;
+}
+
+.district_table { width: 700px;}
+
+#captcha_input, #captcha_input form input{width:30px;}
+
+#accept_button{width:50px;}
+
+.job_for_district{
+  font-family:Arial;
+  font-size:14px;
+}
+
+.job_for_district tr td {
+  width:150px;
+  text-align:center;
+}
+
+.job_for_district tr td.details_td, .job_for_district tr td.date_td{
+  width:100px;
+}
+
+.job_details_table th, .job_details_table td { 
+  width:160px;
+  text-align:center;
+}
+
+.job_details{
+  display:none;
+}
+
+#preferences {
+  border-top:5px solid #222222;
+  padding-top:20px;
+}
+
+.pref_form{
+  width:800px;
+}
+
+.pref_form div input{
+  font-size:18px;
+  margin-bottom:20px;
+}
+
+.subject_name{
+  margin:0px 10px;
+  font-family:Arial;
+  
+}
+
+#sub_pref_title{
+  position:absolute;
+  margin:-37px 0px 0px 25px;
+  padding:0px 5px;
+  font-family:Verdana;
+  font-size:22px;
+  background-color:white;
+}

@@ -1,0 +1,72 @@
+- unless @districts_with_jobs.empty?
+  .notice
+    - if flash[:notice]
+      = flash[:notice]
+  - @districts_with_jobs.each do |district, jb|
+    - unless jb.empty?
+      .district_section
+        .rounded_1.center
+        .rounded_2.center
+        .district_title
+          = district.name
+        - jb.each do |j|
+          %table{:class => "#{cycle('odd', 'even')} district_table", :name => "#{j.absr_id}"}
+            %tr
+              %td
+                %table{:class => "job_for_district"}
+                  %tr
+                    %td.date_td
+                      = j.date
+                    %td
+                      %div
+                        = j.subject
+                      %div
+                      = #link_to( "Exclude", home_exclude_path(@user.id, j.subject))
+                    %td
+                      = j.teacher
+                    %td
+                      = j.school
+              %td#accept_button
+                %input{:class => "accept", :type => 'button', :value => "Accept"}
+            %tr{:class => "job_details", :name => "#{j.absr_id}"}
+              %td{:class => "job_details_table"}
+                %table
+                  %thead
+                    %tr
+                      %th Day
+                      %th Start
+                      %th End
+                      %th Duration
+                      %th School
+                  %tbody
+                    %tr
+                      = j.details.html_safe
+        .rounded_2.center
+        .rounded_1.center
+
+    .hidden_sound
+      - #%audio{:src => "/audio/buzzer.ogg", :autoplay => "autoplay"}
+- else
+  %center
+    There are no jobs at this time.
+
+#accepted_job
+
+:javascript
+  $(document).ready(function(){
+    
+    $(".district_table").click(function(){
+      toggleJobDetails($(this).attr("name"));
+    });
+    
+    $("#accept_button input.accept").click(function(){
+      accept_job(#{@user.id}, $(this).attr('name'));
+    });
+    
+    $("#accepted_job").dialog({
+      autoOpen: false,
+      modal: true,
+      width: 600,
+      height: 300
+    });
+  });

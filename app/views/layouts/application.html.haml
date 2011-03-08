@@ -1,0 +1,22 @@
+!!! 1.0
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title
+      FreeSubJobs.org
+    = stylesheet_link_tag "application", "../javascripts/jquery-ui-1.8.9.custom/css/smoothness/jquery-ui-1.8.9.custom.css"
+    = javascript_include_tag "jquery-ui-1.8.9.custom/js/jquery-1.4.4.min.js", "jquery-ui-1.8.9.custom/js/jquery-ui-1.8.9.custom.min.js", "job_list_controls.js"
+  
+  %body
+    #main_wrap
+      #main_banner
+        .left_text
+          FreeSubJobs.com
+        .clear
+      
+      = yield
+      
+      #main_footer
+        %center
+          FreeSubJobs.com 2010
+          - if Time.now.year > 2010
+            = " - #{Time.now.year}"
