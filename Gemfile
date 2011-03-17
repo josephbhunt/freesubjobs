@@ -8,9 +8,12 @@ gem 'typhoeus'
 gem 'mysql2'
 
 group :development, :test do
-
 end
 
 group :production, :staging do
   gem 'rack-ssl'
+  gem 'nokogiri'
+  gem 'haml'
+  gem 'typhoeus'
+  gem 'mysql2'
 end
