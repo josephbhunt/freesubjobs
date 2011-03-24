@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include AesopConnectHelper, HtmlParseHelper
   layout "application"
   
-  before_filter :find_user, :only => [:show, :logout, :accept_job]
+  before_filter :find_user, :only => [:show, :logout, :accept_job, :reject_job]
   
   def index
   end
@@ -72,16 +72,35 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-  # Requests to the method are always XHR
   def accept_job
     if aesop_details_page(@user, params[:absr_id])
-      hcc = get_job_hcc(@user.response_body)
-      if aesop_accept_job(@user, hcc, params[:absr_id])
+      details = get_details_for_accepet(@user.response_body)
+      if aesop_accept_job(@user, details[:hcc], params[:absr_id])
         render :partial => "accepted_job"
-      end
+      else
+        flash[:notice] = "Job reject failed! You may need to logout and log back in, or the job may no longer be available."
+        redirect_to @user
+      end      
+    else
+      flash[:notice] = "Job reject failed! You may need to logout and log back in, or the job may no longer be available."
+      redirect_to @user
     end
-    flash[:notice] = "Job accept failed! You may need to logout and log back in, or the job may no longer be available."
-    redirect_to @user
+  end
+  
+  def reject_job
+    if aesop_details_page(@user, params[:absr_id])
+      details = get_details_for_accepet(@user.response_body)
+      if aesop_reject_job(@user, details[:hcc], params[:absr_id])
+        flash[:notice] = "You have rejected a job"
+        redirect_to @user
+      else
+        flash[:notice] = "Job reject failed! You may need to logout and log back in, or the job may no longer be available."
+        redirect_to @user
+      end      
+    else
+      flash[:notice] = "Job reject failed! You may need to logout and log back in, or the job may no longer be available."
+      redirect_to @user
+    end
   end
   
   def find_user

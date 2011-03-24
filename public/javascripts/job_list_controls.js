@@ -1,3 +1,13 @@
+$(document).ready(function(){
+  $(".reject_button a.reject").click(function(){
+    var reject = confirm("Are you sure you want to reject this job?");
+    if (reject){
+      $(".district_table[name="+$(this).attr('name')+"]").css("background-color", "red");
+      $(".district_table[name="+$(this).attr('name')+"] .spinner").css("display", "block");
+    }
+  });
+});
+
 function toggleJobDetails(jobId){
   if( $(".job_details[name="+jobId+"]").css("display") == "none" )
     $(".job_details[name="+jobId+"]").css("display", "table-row");
@@ -6,7 +16,6 @@ function toggleJobDetails(jobId){
 }
 
 function refreshJobList(userId){
-  //$("#jobs_list").load('/home/'+userId);
   $.get('/users/'+userId, function(data){
     $("#jobs_list").html(data);
   });
@@ -27,6 +36,9 @@ function accept_job(userId, absrId){
   });
 }
 
-function updatePreferences(){
-  
+function reject_job(userId, absrId){
+  $.get(userId+'/reject_job', {absr_id : absrId}, function(data){
+    $("#reject_job").html(data);
+    $("#reject_job").dialog("open");
+  });
 }

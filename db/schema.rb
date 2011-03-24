@@ -22,10 +22,11 @@ ActiveRecord::Schema.define(:version => 20110227215858) do
     t.string   "time"
     t.string   "duration"
     t.string   "notes"
+    t.string   "absr_id"
+    t.text     "details"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "absr_id"
-    t.string   "details"
   end
 
   create_table "users", :force => true do |t|

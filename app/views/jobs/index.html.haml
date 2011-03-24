@@ -1,0 +1,18 @@
+= render :partial => "shared/top_menu"
+
+#title
+  #sub_title
+    Accepted Jobs
+#accepted_jobs
+  %table
+    %thead
+      %th teacher
+      %th school
+      %th subject
+    %tbody
+      - @user.jobs.each do |j|
+        %tr
+          %td= j.teacher
+          %td= j.school
+          %td= j.subject
+    

@@ -121,8 +121,30 @@ module HtmlParseHelper
     html.xpath(".//span[@class = 'error']").empty?
   end
   
-  def get_job_hcc(response_body)
+  def get_details_for_accepet(response_body)
+    details = {}
+    html = Nokogiri::HTML(response_body)
+    details[:hcc] = html.xpath(".//form[@action = 'sub_accept_job.asp']/input[@id = 'hcc']").attr("value").value
+    table_rows = html.css("table.tablethinsmoke tr[bgcolor = 'whitesmoke']")
+    table_rows.each_with_index do |row, index|
+      if ((index+1) > table_rows.count) && (index != (table_rows.count-1))
+        details[:teacher] = row.xpath(".//td")[1].text
+        details[:title] = row.xpath(".//td")[2].text
+        details[:room] = row.xpath(".//td")[3].text
+        details[:phone] = row.xpath(".//td")[4].text
+        details[:date] = row.xpath(".//td")[5].text
+        details[:time] = row.xpath(".//td")[6].text
+        details[:duration] = row.xpath(".//td")[7].text
+      end
+    end
+    details[:notes] = table_rows[table_rows.count-1].xpath(".//td")[0].text
+    details
+  end
+  
+  def get_details_for_reject(response_body)
     html = Nokogiri::HTML(response_body)
     html.xpath(".//form[@action = 'sub_accept_job.asp']/input[@id = 'hcc']").attr("value").value
+    
   end
+  
 end

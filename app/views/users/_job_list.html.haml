@@ -26,8 +26,13 @@
                       = j.teacher
                     %td
                       = j.school
-              %td#accept_button
-                %input{:class => "accept", :type => 'button', :value => "Accept"}
+              %td.reject_button
+                %a{:class => "reject", :name => "#{j.absr_id}", :href => "#{@user.id}/reject_job?absr_id=#{j.absr_id}"}
+                  Reject
+              %td.accept_button
+                %input{:class => "accept", :type => 'button', :value => "Accept", :name => "#{j.absr_id}"}
+              %td.spinner
+                %img{:src => "/images/spinner.gif", :alt => "spinner"}
             %tr{:class => "job_details", :name => "#{j.absr_id}"}
               %td{:class => "job_details_table"}
                 %table
@@ -51,6 +56,10 @@
     There are no jobs at this time.
 
 #accepted_job
+  you have accepted a job
+
+#rejected_job
+  you have rejected a job
 
 :javascript
   $(document).ready(function(){
@@ -59,12 +68,21 @@
       toggleJobDetails($(this).attr("name"));
     });
     
-    $("#accept_button input.accept").click(function(){
+    $(".accept_button input.accept").click(function(){
       accept_job(#{@user.id}, $(this).attr('name'));
     });
     
     $("#accepted_job").dialog({
       autoOpen: false,
+      title: "You have accepted a job",
+      modal: true,
+      width: 600,
+      height: 300
+    });
+    
+    $("#rejected_job").dialog({
+      autoOpen: false,
+      title: "You have rejected a job",
       modal: true,
       width: 600,
       height: 300

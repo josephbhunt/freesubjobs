@@ -7,6 +7,7 @@ body {
   padding:0px;
 	font-family:Verdana;
 	font-size:14px;
+	color:#222222;
 }
 
 .clear {clear:both;}
@@ -19,6 +20,10 @@ body {
 
 .notice{
   color:red;
+}
+
+.menu_item {
+  margin: 0 10px;
 }
 
 .odd {background-color:#eee;}
@@ -38,7 +43,7 @@ body {
   border-bottom:2px solid #aaaaaa;
   padding:10px;
   margin-bottom:10px;
-  color:#0e0;
+  color:#94ff60;
   font-size:25px;
   font-family: Arial;
 }
@@ -68,10 +73,16 @@ body {
 }
 
 
-#login_title, #register_title{
-  margin-bottom:20px;
+.index_title{
+  margin-bottom:10px;
   font-size:18px;
   width:280px;
+}
+
+.subtitle {
+  font-size:11px;
+  color:#00BDFF;
+  font-weight:bold;
 }
 
 .label{
@@ -82,6 +93,13 @@ body {
 #login_form input, #register_form input{
   margin-bottom:5px;
   font-size:18px;
+}
+
+#how_it_works { 
+  width:600px;
+  margin: 0 auto;
+  padding:10px;
+  background-color:#C4E4FF;
 }
 
 #more_info_links a {
@@ -116,7 +134,7 @@ body {
   font-size:18px;
   font-family:Arial;
   background-color:#444;
-  color:#0e0;
+  color:#94ff60;
 }
 
 .district_table { width: 700px;}
@@ -148,9 +166,15 @@ body {
   display:none;
 }
 
-#preferences {
+.spinner { 
+  display: none;
+  height:28px;
+}
+
+#title {
   border-top:5px solid #222222;
   padding-top:20px;
+  margin-top:20px;
 }
 
 .pref_form{
@@ -168,7 +192,7 @@ body {
   
 }
 
-#sub_pref_title{
+#sub_title{
   position:absolute;
   margin:-37px 0px 0px 25px;
   padding:0px 5px;

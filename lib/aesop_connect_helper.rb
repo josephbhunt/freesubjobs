@@ -72,6 +72,21 @@ module AesopConnectHelper
     status_ok(user.response_code)
   end
   
+  def aesop_reject_job(user, hcc, absr_id)
+    request = Typhoeus::Request.new(
+      "https://www.aesoponline.com/subweb/sub_accept_job.asp?#{user.guid}&hcc=#{hcc}&absr_id=#{absr_id}&Reject=Reject+Job".gsub(";",""), 
+      :method => :get, 
+      :verbose => true, 
+      :headers => {"Referer" => "https://www.aesoponline.com/subweb/sub_accept_job.asp?absr_id=#{absr_id}", 
+        "Cookie" => "#{user.guid} #{user.session_id}"
+      }
+    )
+    
+    response = run_request(request)
+    user.set_response_details(response)
+    status_ok(user.response_code) || user.response_code == 302
+  end
+  
   def aesop_logout(user)
     request = Typhoeus::Request.new(
       "https://www.aesoponline.com/login.asp?x=x&login=exp",

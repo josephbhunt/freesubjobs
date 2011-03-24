@@ -1,11 +1,21 @@
+#how_it_works
+  .index_title
+    How It Works
+  FreeSubJobs.com automatically searches for substitute jobs. No more clicking the refresh button or "Search Again"! 
+  %p Simply Log in, and watch as this site does the hard work. You will be notified when a job is found.
+  %p FreeSubJobs.com does not automatically accept jobs for you, as that is against the Aesop User Agreement. You will have to click the "Accept" button to accept a job.
+
+
 - if flash[:general_notice]
   .notice
     = flash[:general_notice]
 
 #login_register_forms.center
   #login_form.left
-    #login_title
-      Login if you are already registered
+    .index_title
+      Login
+    .subtitle
+      I already have a FreeSubJobs.com account.
     - form_for :user, :url => "/login" do |u|
       .label
         %label
@@ -22,8 +32,10 @@
         = flash[:login_error]
       
   #register_form.left
-    #register_title
-      Register here if this is your first time using FreeSubJobs.com
+    .index_title
+      Register
+    .subtitle
+      I have never used this site before.
     - form_for :user, :url => "/users" do |u|
       .label
         %label
@@ -44,37 +56,25 @@
         = flash[:reg_error]
 
   .clear
+
 %center
   #more_info_links
     = link_to "Is my information secure?", "#", {:name => "security"}
-    = link_to "How does it work?", "#", {:name => "agreement"}
 
 #security
   .dialog_text
     FreeSubJobs.com is a secure way to easily access your Aesop substitute teacher account and find substitute jobs. The information you enter here is 
     sent over a secure channel.
-    %p We do not store your Aesop Pin, and your email address is only used to login. 
-    %p Your email address will never be sold or sent to another organization or business entity. 
-    %p You might receive and email (very rarely, if ever) to provide an update about important changes to the site. You will never receive spam or advertisements. 
+    %p FreeSubJobs.com does not store your Aesop Pin. Your email address is only used to login. 
+    %p Your email address will never be sold or sent to another organization or business. 
+    %p You might receive an email (very rarely, if ever) to provide an update about important changes to the site. You will never receive spam or advertisements. 
     %p You must already have an Aesop id and pin to create an account with FreeSubJobs.com.
-#agreement
-  .dialog_text
-    FreeSubJobs.com automatically searches for substitute jobs. No more clicking the refresh button or "Search Again"! 
-    %p Simply go to FreeSubJobs.com, login, and watch as this site does the hard work. You will be notified when a job is found.
-    %p FreeSubJobs.com does not automatically accept jobs for you, as that is against the Aesop User Agreement. You will have to click the "Accept" button to accept a job.
 
 :javascript
   $(document).ready(function(){
     $("#security").dialog({ 
       autoOpen: false,
       title: "Is My Information Secure?",
-      width: 600,
-      height: 420,
-      modal: true
-    });
-    $("#agreement").dialog({ 
-      autoOpen: false,
-      title: "How Does It Work?",
       width: 600,
       height: 420,
       modal: true

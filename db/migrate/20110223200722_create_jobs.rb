@@ -12,6 +12,7 @@ class CreateJobs < ActiveRecord::Migration
       t.string :notes
       t.string :absr_id
       t.text :details
+      t.integer :user_id
       t.timestamps
     end
   end

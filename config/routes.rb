@@ -16,7 +16,9 @@ Fsj::Application.routes.draw do
   match 'login' => 'users#login', :as => "login"
   match 'users/:id/logout' => 'users#logout', :as => "logout"
   match 'users/:id/accept_job' => 'users#accept_job', :as => 'accept_job'
+  match 'users/:id/reject_job' => 'users#reject_job', :as => 'reject_job'
   
+  resources :jobs
 
   # Sample resource route with options:
   #   resources :products do

@@ -1,0 +1,8 @@
+.menu_item.left
+  = link_to "Look For Jobs", user_path(@user.id)
+.menu_item.left
+  = link_to "View My Jobs", jobs_path({:id => @user.id})
+
+.menu_item.right
+  = link_to "Logout", logout_path(@user.id)
+.clear
