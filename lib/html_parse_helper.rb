@@ -10,6 +10,7 @@ module HtmlParseHelper
     #html = Nokogiri::HTML(File.open("/Users/jobluz/projects/rails/resources/fsj_1.0/html/job_list.html"))
     #html = Nokogiri::HTML(File.open("/Users/jobluz/projects/rails/resources/fsj_1.0/html/job_list2.html"))
     #html = Nokogiri::HTML(File.open("/Users/jobluz/projects/rails/resources/fsj_1.0/html/job_list_multi.html"))
+    #html = Nokogiri::HTML(File.open('/Users/jobluz/projects/rails/resources/freesubjobs/test/jobs2_multi.html'))
     
     # For live site use:
     html = Nokogiri::HTML(response_body)
@@ -45,24 +46,14 @@ module HtmlParseHelper
       assignments_details = jobs_info.xpath(".//tr[@bgcolor = 'gainsboro']/td/table | .//tr[@bgcolor = 'whitesmoke']/td/table")
       
       #loop through all of the top section details and add to the job objects
-      assignments = []
       assignments_details.each_with_index do |job, i|
         job.xpath(".//tr").each_with_index do |day, index|
-          #if index > 1
-          #  #assignments << create_assignment(day)
-          #  assign_date = html.xpath("./td[2]").text.strip.slice(/(.*)\s/)
-          #  duration = html.xpath("./td[5]").text.strip
-          #  assign_school = html.xpath("./td[6]").text.strip
-          #  jobs_list[i].Assignment.new(assign_school, duration, assign_date)
-          #end
-          #jobs_list[i].assignments = assignments
           
           #get the details table html
           details_table = jobs_info.xpath(".//tr[#{next_tr_index(i)}]/td[@colspan='9']/table/tr")
-          jobs_list[i].details = scrape_job_details(details_table)
+          jobs_list[i] = scrape_job_details(details_table, jobs_list[i])
         end
       end
-      
     end
     jobs_list
   end
@@ -72,49 +63,40 @@ module HtmlParseHelper
     2*(index+1)+1
   end
   
-  #def create_assignment(html)
-  #  assign_date = html.xpath("./td[2]").text.strip.slice(/(.*)\s/)
-  #  duration = html.xpath("./td[5]").text.strip
-  #  assign_school = html.xpath("./td[6]").text.strip
-  #  Assignment.new(assign_school, duration, assign_date)
-  #end
-  
   #loop through all of the top section details, create job objects, add to job_list
   #cannot return nil
   def create_jobs_for_dist(jobs_details)
-    jobs_list = []
+    job_list = []
     jobs_details.each do |job|
-        j = Job.new()
-        j.date = job.xpath("./td")[0].text.strip #convert to date object
-        j.school = job.xpath("./td")[1].text.strip
-        j.teacher = job.xpath("./td")[2].text.strip
-        j.subject = job.xpath("./td")[3].text.strip
-        j.absr_id = job.xpath("./td/a")[0]['href'].slice(/\d+/)
-        jobs_list << j
+      j = Job.new
+      assignment = Assignment.new
+      assignment.school = job.xpath("./td")[1].text.strip
+      assignment.teacher = job.xpath("./td")[2].text.strip
+      assignment.subject = job.xpath("./td")[3].text.strip
+      j.absr_id = job.xpath("./td/a")[0]['href'].slice(/\d+/)
+      j.assignments << assignment
+      job_list << j
     end
-    jobs_list
+    job_list
   end
   
-  def scrape_job_details(job_details_from_aesop)
-    new_details_table = ""
-    job_details_from_aesop.each_with_index do |day, i|
+  def scrape_job_details(job_details, job)
+    original_assignment = job.assignments[0]
+    job_details.each_with_index do |day, i|
       unless i == 0
+        assignment = Assignment.new
         day_details = day.xpath(".//td")
-        date = day_details[1].text
-        start_time  = day_details[2].text
-        end_time = day_details[3].text
-        duration = day_details[4].text
-        schoole = day_details[5].text
-        new_details_table += "<tr>" +
-                                "<td>#{date}</td>" +
-                                "<td>#{start_time}</td>" +
-                                "<td>#{end_time}</td>" +
-                                "<td>#{duration}</td" +
-                                "<td>#{schoole}</td>" +
-                                "</tr>"
+        assignment.date = day_details[1].text
+        assignment.start_time  = day_details[2].text
+        assignment.end_time = day_details[3].text
+        assignment.duration = day_details[4].text
+        assignment.school = original_assignment.school
+        assignment.subject = original_assignment.subject
+        assignment.teacher = original_assignment.teacher
+        job.assignments[i-1] = assignment
       end
     end
-    new_details_table 
+    job
   end
   
   def has_jobs?(html)
@@ -122,29 +104,30 @@ module HtmlParseHelper
   end
   
   def get_details_for_accepet(response_body)
-    details = {}
     html = Nokogiri::HTML(response_body)
-    details[:hcc] = html.xpath(".//form[@action = 'sub_accept_job.asp']/input[@id = 'hcc']").attr("value").value
-    table_rows = html.css("table.tablethinsmoke tr[bgcolor = 'whitesmoke']")
+    job = Job.new
+    job.hcc = html.xpath(".//form[@action = 'sub_accept_job.asp']/input[@id = 'hcc']").attr("value").value
+    table_rows = html.css("table.tablethinsmoke tr")
     table_rows.each_with_index do |row, index|
-      if ((index+1) > table_rows.count) && (index != (table_rows.count-1))
-        details[:teacher] = row.xpath(".//td")[1].text
-        details[:title] = row.xpath(".//td")[2].text
-        details[:room] = row.xpath(".//td")[3].text
-        details[:phone] = row.xpath(".//td")[4].text
-        details[:date] = row.xpath(".//td")[5].text
-        details[:time] = row.xpath(".//td")[6].text
-        details[:duration] = row.xpath(".//td")[7].text
+      if ((index+1) > table_rows.count) && (index != (table_rows.count-1) && (index > 1))
+        assignment = Assignment.new
+        assignment.teacher = row.xpath(".//td")[1].text
+        assignment.title = row.xpath(".//td")[2].text
+        assignment.room = row.xpath(".//td")[3].text
+        assignment.phone_number = row.xpath(".//td")[4].text
+        assignment.date = row.xpath(".//td")[5].text
+        assignment.time = row.xpath(".//td")[6].text
+        assignment.duration = row.xpath(".//td")[7].text
+        job.assignments << assignment
       end
     end
-    details[:notes] = table_rows[table_rows.count-1].xpath(".//td")[0].text
-    details
+    job.notes = table_rows[table_rows.count-1].xpath(".//td")[0].text
+    job
   end
   
   def get_details_for_reject(response_body)
     html = Nokogiri::HTML(response_body)
     html.xpath(".//form[@action = 'sub_accept_job.asp']/input[@id = 'hcc']").attr("value").value
-    
   end
   
 end

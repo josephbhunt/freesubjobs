@@ -1,0 +1,38 @@
+= render :partial => "shared/top_menu"
+
+#title
+  #sub_title
+    Job Starting
+    = @job.assignments[0].date
+    
+  .rounded_list_container
+    .rounded_1.center
+    .rounded_2.center
+    .rounded_list_item.center
+      .rounded_list_title
+        = @job.assignments[0].date
+      #job_notes
+        = @job.notes
+      %table.scheduled_job{:cellpadding => 0, :cellspacing => 0}
+        %thead
+          %th Teacher
+          %th School
+          %th Subject
+          %th Room
+          %th Phone Number
+          %th Date
+          %th Time
+          %th Duration
+        - @job.assignments.each do |assignment|
+          %tbody{:class => "#{cycle('odd', 'even')}"}
+            %tr
+              %td= assignment.teacher
+              %td= assignment.school
+              %td= assignment.subject
+              %td= assignment.room
+              %td= assignment.phone_number
+              %td= assignment.date
+              %td= assignment.time
+              %td= assignment.duration
+    .rounded_2.center
+    .rounded_1.center

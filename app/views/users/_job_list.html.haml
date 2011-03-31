@@ -4,33 +4,34 @@
       = flash[:notice]
   - @districts_with_jobs.each do |district, jb|
     - unless jb.empty?
-      .district_section
+      .rounded_list_container
         .rounded_1.center
         .rounded_2.center
-        .district_title
+        .rounded_list_title
           = district.name
         - jb.each do |j|
-          %table{:class => "#{cycle('odd', 'even')} district_table", :name => "#{j.absr_id}"}
+          %table.rounded_list_item{:class => "#{cycle('odd', 'even')}", :name => "#{j.absr_id}"}
             %tr
               %td
                 %table{:class => "job_for_district"}
                   %tr
                     %td.date_td
-                      = j.date
+                      = j.assignments[0].date
                     %td
                       %div
-                        = j.subject
+                        = j.assignments[0].subject
                       %div
                       = #link_to( "Exclude", home_exclude_path(@user.id, j.subject))
                     %td
-                      = j.teacher
+                      = j.assignments[0].teacher
                     %td
-                      = j.school
+                      = j.assignments[0].school
               %td.reject_button
                 %a{:class => "reject", :name => "#{j.absr_id}", :href => "#{@user.id}/reject_job?absr_id=#{j.absr_id}"}
                   Reject
               %td.accept_button
-                %input{:class => "accept", :type => 'button', :value => "Accept", :name => "#{j.absr_id}"}
+                %a{:class => "accept", :name => "#{j.absr_id}", :href => "/jobs/new?absr_id=#{j.absr_id}"}
+                  Accept
               %td.spinner
                 %img{:src => "/images/spinner.gif", :alt => "spinner"}
             %tr{:class => "job_details", :name => "#{j.absr_id}"}
@@ -44,8 +45,13 @@
                       %th Duration
                       %th School
                   %tbody
-                    %tr
-                      = j.details.html_safe
+                    - j.assignments.each do |assignment|
+                      %tr
+                        %td= assignment.date
+                        %td= assignment.start_time
+                        %td= assignment.end_time
+                        %td= assignment.duration
+                        %td= assignment.school
         .rounded_2.center
         .rounded_1.center
 
@@ -55,36 +61,9 @@
   %center
     There are no jobs at this time.
 
-#accepted_job
-  you have accepted a job
-
-#rejected_job
-  you have rejected a job
-
 :javascript
   $(document).ready(function(){
-    
-    $(".district_table").click(function(){
+    $(".rounded_list_item").click(function(){
       toggleJobDetails($(this).attr("name"));
-    });
-    
-    $(".accept_button input.accept").click(function(){
-      accept_job(#{@user.id}, $(this).attr('name'));
-    });
-    
-    $("#accepted_job").dialog({
-      autoOpen: false,
-      title: "You have accepted a job",
-      modal: true,
-      width: 600,
-      height: 300
-    });
-    
-    $("#rejected_job").dialog({
-      autoOpen: false,
-      title: "You have rejected a job",
-      modal: true,
-      width: 600,
-      height: 300
     });
   });

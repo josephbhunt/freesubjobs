@@ -26,19 +26,5 @@ function refreshJobList(userId){
 var timer;
 function startJobListRefresher(userId){
   clearTimeout(timer);
-  //timer = setTimeout("refreshJobList("+userId+")", 10000);
-}
-
-function accept_job(userId, absrId){
-  $.get(userId+'/accept_job', {absr_id : absrId}, function(data){
-    $("#accepted_job").html(data);
-    $("#accepted_job").dialog("open");
-  });
-}
-
-function reject_job(userId, absrId){
-  $.get(userId+'/reject_job', {absr_id : absrId}, function(data){
-    $("#reject_job").html(data);
-    $("#reject_job").dialog("open");
-  });
+  timer = setTimeout("refreshJobList("+userId+")", 10000);
 }

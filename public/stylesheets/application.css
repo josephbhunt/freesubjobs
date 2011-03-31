@@ -1,13 +1,13 @@
 /**************
-*   General    *
+*   Global    *
 **************/
 
 body {
   margin:0px;
   padding:0px;
-	font-family:Verdana;
-	font-size:14px;
-	color:#222222;
+  font-family:Verdana;
+  font-size:14px;
+  color:#222222;
 }
 
 .clear {clear:both;}
@@ -17,6 +17,10 @@ body {
 .right{float:right;}
 
 .center{margin:0px auto;}
+
+.center_text{
+  text-align: center;
+}
 
 .notice{
   color:red;
@@ -59,7 +63,7 @@ body {
 }
 
 /**************
-*  Index      *
+*  Users Index      *
 **************/
 #login_register_forms{
   width:750px;
@@ -107,7 +111,7 @@ body {
 }
 
 /**************
-*  Show       *
+*  Users Show *
 **************/
 #jobs_list{
   width:700px;
@@ -115,7 +119,7 @@ body {
   margin-bottom:20px;
 }
 
-.district_section{
+.rounded_list_container{
   margin-bottom:5px;
 }
 
@@ -129,7 +133,7 @@ body {
 
 .rounded_2{ width:698px;}
 
-.district_title{
+.rounded_list_title {
   padding:5px 15px;
   font-size:18px;
   font-family:Arial;
@@ -137,7 +141,7 @@ body {
   color:#94ff60;
 }
 
-.district_table { width: 700px;}
+.rounded_list_item { width: 700px;}
 
 #captcha_input, #captcha_input form input{width:30px;}
 
@@ -189,7 +193,6 @@ body {
 .subject_name{
   margin:0px 10px;
   font-family:Arial;
-  
 }
 
 #sub_title{
@@ -199,4 +202,24 @@ body {
   font-family:Verdana;
   font-size:22px;
   background-color:white;
+}
+
+/************
+*   Jobs    *
+************/
+
+.scheduled_job {
+  width:700px;
+  margin:5 10px;
+  padding:5px;
+  cursor:pointer;
+  border:2px solid #AAAAAA;
+}
+
+table.scheduled_job {
+  border-spacing:0 5px;
+}
+
+table.scheduled_job tr td {
+  padding: 5px 0;
 }
