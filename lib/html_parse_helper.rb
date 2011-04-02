@@ -10,10 +10,10 @@ module HtmlParseHelper
     #html = Nokogiri::HTML(File.open("/Users/jobluz/projects/rails/resources/fsj_1.0/html/job_list.html"))
     #html = Nokogiri::HTML(File.open("/Users/jobluz/projects/rails/resources/fsj_1.0/html/job_list2.html"))
     #html = Nokogiri::HTML(File.open("/Users/jobluz/projects/rails/resources/fsj_1.0/html/job_list_multi.html"))
-    html = Nokogiri::HTML(File.open('/Users/jobluz/projects/rails/resources/freesubjobs/test/jobs2_multi.html'))
+    #html = Nokogiri::HTML(File.open('/Users/jobluz/projects/rails/resources/freesubjobs/test/jobs2_multi.html'))
     
     # For live site use:
-    #html = Nokogiri::HTML(response_body)
+    html = Nokogiri::HTML(response_body)
     
     district_sections = html.css(".showjobs.homeMenuText")
     district_sections.each do |dist_html|
