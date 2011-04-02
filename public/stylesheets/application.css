@@ -204,6 +204,11 @@ body {
   background-color:white;
 }
 
+.reject_button a img, .accept_button a img { 
+  border:none;
+  margin:0 10px;
+}
+
 /************
 *   Jobs    *
 ************/

@@ -3,31 +3,35 @@
 #title
   #sub_title
     Accepted Jobs
-  - @user.jobs.each do |j|
-    .rounded_list_container
-      .rounded_1.center
-      .rounded_2.center
-      .rounded_list_item.center
-        .rounded_list_title
-          = j.assignments[0].date
-        %table.scheduled_job{:id => j.id, :class => "#{cycle('odd', 'even')}"}
-          %thead
-            %th Teacher
-            %th School
-            %th Subject
-            %th Room
-            %th Time
-            %th Duration
-          %tbody
-            %tr
-              %td.center_text= j.assignments[0].teacher
-              %td.center_text= j.assignments[0].school
-              %td.center_text= j.assignments[0].subject
-              %td.center_text= j.assignments[0].room
-              %td.center_text= j.assignments[0].time
-              %td.center_text= j.assignments[0].duration
-      .rounded_2.center
-      .rounded_1.center
+  - unless @jobs.nil?
+    - @user.jobs.each do |j|
+      .rounded_list_container
+        .rounded_1.center
+        .rounded_2.center
+        .rounded_list_item.center
+          .rounded_list_title
+            = j.assignments[0].date
+          %table.scheduled_job{:id => j.id, :class => "#{cycle('odd', 'even')}"}
+            %thead
+              %th Teacher
+              %th School
+              %th Subject
+              %th Room
+              %th Time
+              %th Duration
+            %tbody
+              %tr
+                %td.center_text= j.assignments[0].teacher
+                %td.center_text= j.assignments[0].school
+                %td.center_text= j.assignments[0].subject
+                %td.center_text= j.assignments[0].room
+                %td.center_text= j.assignments[0].time
+                %td.center_text= j.assignments[0].duration
+        .rounded_2.center
+        .rounded_1.center
+  - else
+    %center
+      You have not accepted any jobs
 
 :javascript
   $(document).ready(function(){

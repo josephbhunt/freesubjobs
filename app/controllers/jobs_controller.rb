@@ -17,18 +17,18 @@ class JobsController < ApplicationController
   
   def new
     if aesop_details_page(@user, params[:absr_id])
-      @job = get_details_for_accepet(@user.response_body)
+      @job = get_details_for_accept(@user.response_body)
       if aesop_accept_job(@user, @job.hcc, params[:absr_id])
         @job.save
         flash[:notice] = "You have accepted this job!"
         redirect_to @job
       else
         flash[:notice] = "Job accept failed! You may need to logout and log back in, or the job may no longer be available."
-        redirect_to @user
+        redirect_to :controller => "users", :action => "show", :id => @user.id
       end      
     else
       flash[:notice] = "Job accept failed! You may need to logout and log back in, or the job may no longer be available."
-      redirect_to @user
+      redirect_to :controller => "users", :action => "show", :id => @user.id
     end
   end
   
@@ -36,6 +36,7 @@ class JobsController < ApplicationController
   end
   
   def destroy
+    
   end
   
   def find_user

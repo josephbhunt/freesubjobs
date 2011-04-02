@@ -21,17 +21,16 @@
                       %div
                         = j.assignments[0].subject
                       %div
-                      = #link_to( "Exclude", home_exclude_path(@user.id, j.subject))
+                      = #link_to( "Exclude", )
                     %td
                       = j.assignments[0].teacher
                     %td
                       = j.assignments[0].school
               %td.reject_button
-                %a{:class => "reject", :name => "#{j.absr_id}", :href => "#{@user.id}/reject_job?absr_id=#{j.absr_id}"}
-                  Reject
+                %img.reject{:src => '/images/red-circle-slash.png', :name => "#{j.absr_id}"}
               %td.accept_button
-                %a{:class => "accept", :name => "#{j.absr_id}", :href => "/jobs/new?absr_id=#{j.absr_id}"}
-                  Accept
+                %a{:class => "accept", :name => "#{j.absr_id}", :href => "/jobs/new?absr_id=#{j.absr_id}&user_id=#{@user.id}"}
+                  %img{:src => '/images/green-plus.png'}
               %td.spinner
                 %img{:src => "/images/spinner.gif", :alt => "spinner"}
             %tr{:class => "job_details", :name => "#{j.absr_id}"}
@@ -65,5 +64,11 @@
   $(document).ready(function(){
     $(".rounded_list_item").click(function(){
       toggleJobDetails($(this).attr("name"));
+    });
+    
+    $(".reject").click(function(){
+      absrId = $(this).attr("name");
+      var confirmed = confirm("Are you sure you want to reject this job?")
+      if (confirmed){ window.location = "#{@user.id}/reject_job?absr_id="+absrId; }
     });
   });

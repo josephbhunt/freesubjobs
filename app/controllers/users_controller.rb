@@ -74,8 +74,8 @@ class UsersController < ApplicationController
   
   def reject_job
     if aesop_details_page(@user, params[:absr_id])
-      details = get_details_for_accepet(@user.response_body)
-      if aesop_reject_job(@user, details[:hcc], params[:absr_id])
+      hcc = get_details_for_reject(@user.response_body)
+      if aesop_reject_job(@user, hcc, params[:absr_id])
         flash[:notice] = "You have rejected a job"
         redirect_to @user
       else
